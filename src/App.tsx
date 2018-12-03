@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import * as Rx from "rxjs/Rx";
-import logo from "./logo.svg";
+import logo from "./logo.png";
 import "./App.css";
+import Content from "./Content";
 
 class App extends Component {
   render() {
@@ -9,24 +10,17 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <h1 className="App-title">Welcome to RxJS</h1>
         </header>
+
+        <h1>Agenda</h1>
+        <p className="App-intro">
+          <code>Init</code> | <code>Demo</code> | <code>QA</code>
+        </p>
+        <Content />
       </div>
     );
   }
 }
-Rx.Observable.of(2, 30, 22, 5, 60, 1)
-  .filter(x => x > 10)
-  .subscribe(x => console.log("item:", x));
 
 export default App;

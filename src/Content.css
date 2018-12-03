@@ -1,0 +1,11 @@
+.container {
+  display: flex; /* or inline-flex */
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.item {
+  flex: 1;
+  margin: 0.5%;
+}
