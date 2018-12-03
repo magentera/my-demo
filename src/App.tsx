@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import * as Rx from "rxjs/Rx";
+import logo from "./logo.svg";
+import "./App.css";
 
 class App extends Component {
   render() {
@@ -24,5 +25,8 @@ class App extends Component {
     );
   }
 }
+Rx.Observable.of(2, 30, 22, 5, 60, 1)
+  .filter(x => x > 10)
+  .subscribe(x => console.log("item:", x));
 
 export default App;
