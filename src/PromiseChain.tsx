@@ -77,7 +77,7 @@ class PromiseChain extends React.Component<{}, ContentState> {
       <div className="item">
         <header className="App-tile">
           <h1 className="App-title">
-            <code>fromPromise()</code>
+            <code>BehaviourSubject()</code>
           </h1>
           <button onClick={this.subscribeToObservables}>Subscribe</button>
           <button onClick={this.unsubscribeFromObservables}>Unsubscribe</button>

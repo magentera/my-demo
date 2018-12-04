@@ -22,7 +22,7 @@ class DoubleClick extends React.Component<{}, ContentState> {
       <div className="item">
         <header className="App-tile">
           <h1 className="App-title">
-            <code>interval()</code>
+            <code>Subject()</code>
           </h1>
           <p>Count: {this.state.count}</p>
         </header>
