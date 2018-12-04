@@ -7,7 +7,7 @@ const counter = interval(1000);
 interface ContentState {
   count: number;
 }
-class DoubleClick extends React.Component<{}, ContentState> {
+class IntervalList extends React.Component<{}, ContentState> {
   constructor(props: any) {
     super(props);
     this.state = { count: 0 };
@@ -31,4 +31,4 @@ class DoubleClick extends React.Component<{}, ContentState> {
   }
 }
 
-export default DoubleClick;
+export default IntervalList;
