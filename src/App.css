@@ -23,6 +23,10 @@
 .App-title {
   font-size: 1.5em;
 }
+.App-text {
+  font-size: 1em;
+  color: white;
+}
 
 .App-intro {
   font-size: large;

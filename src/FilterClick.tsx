@@ -1,5 +1,6 @@
 import React from "react";
 import * as Rx from "rxjs/Rx";
+import { fruits } from "./sampleData";
 
 interface ContentState {
   messages: string[];
@@ -18,20 +19,21 @@ class FilterClick extends React.Component<{}, ContentState> {
   FruitSubject = new Rx.Subject();
 
   componentDidMount() {
-    this.FruitSubject
-      // .filter(x => x ==== "Apple")
-      .subscribe(mes =>
-        this.setState(state => ({
-          messages: state.messages.concat(String(mes))
-        }))
-      );
+    this.FruitSubject.filter(x => x === "Apple").subscribe(mes =>
+      this.setState(state => ({
+        messages: state.messages.concat(String(mes))
+      }))
+    );
 
-    const button = document.querySelector(".clicker");
-    if (button) {
-      const obj = Rx.Observable.fromEvent(button, "click");
-      obj
-        //.throttleTime(1000) // only click once per second.
-        .bufferWhen(() => obj.delay(350))
+    const doubleButton = document.querySelector(".doubleclick");
+
+    if (doubleButton) {
+      const observedButtonEvent = Rx.Observable.fromEvent(
+        doubleButton,
+        "click"
+      );
+      observedButtonEvent
+        .bufferWhen(() => observedButtonEvent.delay(350))
         .filter(events => events.length >= 2)
         .subscribe(() => {
           this.setState({
@@ -40,9 +42,10 @@ class FilterClick extends React.Component<{}, ContentState> {
           return this.handler();
         });
     }
-    const button2 = document.querySelector(".slowDownBuddy");
-    if (button2) {
-      Rx.Observable.fromEvent(button2, "click")
+    const slowDownButton = document.querySelector(".slowdownbuddy");
+
+    if (slowDownButton) {
+      Rx.Observable.fromEvent(slowDownButton, "click")
         .throttleTime(1000) // only click once per second.
         .scan(count => count + 1, 0)
         .subscribe(() => {
@@ -70,8 +73,8 @@ class FilterClick extends React.Component<{}, ContentState> {
             <code>clickHandlers()</code>
           </h1>
           <div />
-          <button className="clicker">Add</button>
-          <button className="slowDownBuddy">slow Click</button>
+          <button className="doubleclick">Only doubles</button>
+          <button className="slowdownbuddy">Slow down buddy</button>
 
           <div>{this.state.clickState}</div>
           <ul>
@@ -85,16 +88,4 @@ class FilterClick extends React.Component<{}, ContentState> {
   }
 }
 
-const fruits = [
-  "Apple",
-  "Orange",
-  "Strawberry",
-  "Grapes",
-  "Tomato",
-  "Fejoa",
-  "Passionfruit",
-  "Dragonfruit",
-  "Lychee",
-  "Durian"
-];
 export default FilterClick;

@@ -14,7 +14,7 @@ class DoubleClick extends React.Component<{}, ContentState> {
   }
 
   componentDidMount() {
-    counter.subscribe(int => this.setState({ count: int }));
+    counter.subscribe(val => this.setState({ count: val }));
   }
 
   render() {
