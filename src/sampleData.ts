@@ -1,0 +1,47 @@
+export const longQuery = "Wow! thats a lot of data";
+export const shortQuery = "Wow! thats not a lot of data";
+export const userData = "Userid: 1";
+export const weatherQuery = "Sharknados incoming!";
+
+export const hugeListOfNumbers = [
+  1,
+  2,
+  3,
+  4,
+  4,
+  5,
+  6,
+  6,
+  7,
+  8,
+  89,
+  9,
+  9,
+  0,
+  7,
+  5,
+  4,
+  43,
+  32,
+  345,
+  4567,
+  568,
+  6789,
+  45,
+  3,
+  234,
+  234,
+  45,
+  56,
+  678,
+  69,
+  0,
+  69,
+  3,
+  4,
+  5,
+  33,
+  243,
+  5,
+  6
+];
