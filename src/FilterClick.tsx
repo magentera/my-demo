@@ -1,6 +1,7 @@
 import React from "react";
 import * as Rx from "rxjs/Rx";
 import { fruits } from "./sampleData";
+import { FruitSubject } from "./Subjects";
 
 interface ContentState {
   messages: string[];
@@ -13,17 +14,17 @@ class FilterClick extends React.Component<{}, ContentState> {
     this.state = { messages: [], clickState: "" };
 
     this.handler = this.handler.bind(this);
-    this.pushToArray = this.pushToArray.bind(this);
+    this.pushToSubject = this.pushToSubject.bind(this);
   }
 
-  FruitSubject = new Rx.Subject();
-
   componentDidMount() {
-    this.FruitSubject.filter(x => x === "Apple").subscribe(mes =>
-      this.setState(state => ({
-        messages: state.messages.concat(String(mes))
-      }))
-    );
+    FruitSubject
+      //.filter(x => x === "Apple")
+      .subscribe(mes =>
+        this.setState(state => ({
+          messages: [...state.messages, String(mes)]
+        }))
+      );
 
     const doubleButton = document.querySelector(".doubleclick");
 
@@ -46,7 +47,7 @@ class FilterClick extends React.Component<{}, ContentState> {
 
     if (slowDownButton) {
       Rx.Observable.fromEvent(slowDownButton, "click")
-        .throttleTime(1000) // only click once per second.
+        .throttleTime(1000)
         .scan(count => count + 1, 0)
         .subscribe(() => {
           this.setState({
@@ -58,10 +59,10 @@ class FilterClick extends React.Component<{}, ContentState> {
   }
 
   handler(): void {
-    this.pushToArray(this.FruitSubject, fruits[Math.floor(Math.random() * 10)]);
+    this.pushToSubject(FruitSubject, fruits[Math.floor(Math.random() * 10)]);
   }
 
-  pushToArray = function(subject: Rx.Subject<{}>, fruit: string) {
+  pushToSubject = function(subject: Rx.Subject<{}>, fruit: string) {
     subject.next(fruit);
   };
 
