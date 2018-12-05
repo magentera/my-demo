@@ -11,8 +11,8 @@ class Content extends React.Component {
       <div className="container">
         <LongList />
         <FilterClick />
-        <IntervalList />
         <PromiseChain />
+        {/* <IntervalList /> */}
       </div>
     );
   }

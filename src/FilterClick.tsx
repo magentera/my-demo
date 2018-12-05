@@ -73,16 +73,13 @@ class FilterClick extends React.Component<{}, ContentState> {
           <h1 className="App-title">
             <code>clickHandlers()</code>
           </h1>
-          <div />
           <button className="doubleclick">Only doubles</button>
           <button className="slowdownbuddy">Slow down buddy</button>
-
           <div>{this.state.clickState}</div>
-          <ul>
-            {this.state.messages.map(message => (
-              <li>{message}</li>
-            ))}
-          </ul>
+
+          {this.state.messages.map(message => (
+            <div>{message}</div>
+          ))}
         </div>
       </div>
     );

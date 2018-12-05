@@ -1,10 +1,8 @@
 import React from "react";
-import { interval } from "rxjs";
-
-const constantFeed = interval(1000);
+import { Observable } from "rxjs";
 
 interface ContentState {
-  messages: number[];
+  messages: string[];
 }
 
 class LongList extends React.Component<{}, ContentState> {
@@ -13,31 +11,34 @@ class LongList extends React.Component<{}, ContentState> {
     this.state = { messages: [] };
   }
 
-  componentDidMount() {
-    constantFeed
-      .map(n => {
-        if (n === 5) throw "error";
-        return n + 1;
-      })
-      .retryWhen(errors => {
-        this.setState({ messages: [] });
-        return errors.delay(5000);
-      })
-      .subscribe(val =>
-        this.setState(state => ({
-          messages: [...state.messages, Number(val)]
-        }))
-      );
+  getRandomTodoData(): Promise<Response> {
+    return fetch(
+      `https://jsonplaceholder.typicode.com/todos/${Math.floor(
+        Math.random() * 200 + 1
+      )}`
+    );
   }
 
-  //idea pipe the observable data into a subject and create different subjects for event types.
+  componentDidMount() {
+    Observable.timer(2000)
+      .flatMap(() => Observable.fromPromise(this.getRandomTodoData()))
+      .repeat()
+      .retry()
+      .subscribe(data => {
+        Observable.fromPromise(data.json()).subscribe(result =>
+          this.setState(() => ({
+            messages: [String(JSON.stringify(result))]
+          }))
+        );
+      });
+  }
 
   render() {
     return (
       <div className="item">
         <header className="App-tile">
           <h1 className="App-title">
-            <code>retry()</code>
+            <code>repeat()</code>
           </h1>
           <ul>
             {this.state.messages.map(message => (
