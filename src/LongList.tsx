@@ -14,7 +14,7 @@ class LongList extends React.Component<{}, ContentState> {
   getRandomTodoData(): Promise<Response> {
     return fetch(
       `https://jsonplaceholder.typicode.com/todos/${Math.floor(
-        Math.random() * 200 + 1
+        Math.random() * 300 + 1
       )}`
     );
   }
@@ -23,13 +23,17 @@ class LongList extends React.Component<{}, ContentState> {
     Observable.timer(2000)
       .flatMap(() => Observable.fromPromise(this.getRandomTodoData()))
       .repeat()
-      .retry()
       .subscribe(data => {
-        Observable.fromPromise(data.json()).subscribe(result =>
-          this.setState(() => ({
-            messages: [String(JSON.stringify(result))]
-          }))
-        );
+        Observable.fromPromise(data.json()).subscribe(result => {
+          if (data.status == 200)
+            return this.setState(() => ({
+              messages: [String(JSON.stringify(result))]
+            }));
+
+          return this.setState(() => ({
+            messages: ["Todo data not found"]
+          }));
+        });
       });
   }
 
