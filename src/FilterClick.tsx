@@ -20,8 +20,8 @@ class FilterClick extends React.Component<{}, ContentState> {
 
   componentDidMount() {
     FruitSubject.subscribe(mes =>
-      this.setState(state => ({
-        messages: [...state.messages, String(mes)]
+      this.setState(() => ({
+        messages: [...this.state.messages, String(mes)]
       }))
     );
 

@@ -15,12 +15,12 @@ class CompletedList extends React.Component<{}, ContentState> {
     TodoSubject.filter(item => item.completed === true).subscribe(
       (val: TodoItem) => {
         if (this.state.messages.length > 4)
-          this.setState(state => ({
-            messages: [...state.messages.slice(1, 5)]
+          this.setState(() => ({
+            messages: [...this.state.messages.slice(1, 5)]
           }));
 
-        this.setState(state => ({
-          messages: [...state.messages, val]
+        this.setState(() => ({
+          messages: [...this.state.messages, val]
         }));
       }
     );
