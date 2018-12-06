@@ -5,6 +5,7 @@ import { TodoItem } from "./types";
 interface ContentState {
   messages: TodoItem[];
 }
+
 class CompletedList extends React.Component<{}, ContentState> {
   constructor(props: any) {
     super(props);
@@ -24,6 +25,7 @@ class CompletedList extends React.Component<{}, ContentState> {
       }
     );
   }
+
   render() {
     return (
       <div className="item">
@@ -37,7 +39,6 @@ class CompletedList extends React.Component<{}, ContentState> {
                 <p>
                   {item.title}
                   <br />
-
                   {item.completed ? "Completed" : "Not complete"}
                 </p>
               </div>
