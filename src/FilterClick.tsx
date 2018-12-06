@@ -62,7 +62,7 @@ class FilterClick extends React.Component<{}, ContentState> {
     this.pushToSubject(FruitSubject, fruits[Math.floor(Math.random() * 10)]);
   }
 
-  pushToSubject = function(subject: Rx.Subject<{}>, fruit: string) {
+  pushToSubject = function(subject: Rx.Subject<string>, fruit: string) {
     subject.next(fruit);
   };
   clearMessages() {
