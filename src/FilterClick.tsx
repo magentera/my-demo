@@ -15,16 +15,15 @@ class FilterClick extends React.Component<{}, ContentState> {
 
     this.handler = this.handler.bind(this);
     this.pushToSubject = this.pushToSubject.bind(this);
+    this.clearMessages = this.clearMessages.bind(this);
   }
 
   componentDidMount() {
-    FruitSubject
-      //.filter(x => x === "Apple")
-      .subscribe(mes =>
-        this.setState(state => ({
-          messages: [...state.messages, String(mes)]
-        }))
-      );
+    FruitSubject.subscribe(mes =>
+      this.setState(state => ({
+        messages: [...state.messages, String(mes)]
+      }))
+    );
 
     const doubleButton = document.querySelector(".doubleclick");
 
@@ -43,6 +42,7 @@ class FilterClick extends React.Component<{}, ContentState> {
           return this.handler();
         });
     }
+
     const slowDownButton = document.querySelector(".slowdownbuddy");
 
     if (slowDownButton) {
@@ -65,6 +65,11 @@ class FilterClick extends React.Component<{}, ContentState> {
   pushToSubject = function(subject: Rx.Subject<{}>, fruit: string) {
     subject.next(fruit);
   };
+  clearMessages() {
+    this.setState({
+      messages: []
+    });
+  }
 
   render() {
     return (
@@ -75,6 +80,7 @@ class FilterClick extends React.Component<{}, ContentState> {
           </h1>
           <button className="doubleclick">Only doubles</button>
           <button className="slowdownbuddy">Slow down buddy</button>
+          <button onClick={this.clearMessages}>Clear</button>
           <div>{this.state.clickState}</div>
 
           {this.state.messages.map(message => (
